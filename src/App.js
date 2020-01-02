@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { SearchBox } from "./components/search-box/search-box.component";
 import { CardList } from "./components/card-list/card-list.component";
-import logo from "./logo.svg";
+import Lifecycles from "./components/misc/lifecycles.component";
 import "./App.css";
 
 class App extends Component {
@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       string: "hello",
       monsters: [],
-      searchFilter: ""
+      searchFilter: "",
+      showChild: true
     };
   }
 
@@ -22,17 +23,35 @@ class App extends Component {
 
   onHandleChange = e => {
     this.setState({ searchFilter: e.target.value });
-  }
+  };
 
   render() {
     const { monsters, searchFilter } = this.state;
-    const filteredMonsters = monsters.filter(monster =>
-      {
-        return monster.name.toLowerCase().includes(searchFilter.toLowerCase());
-      }
-    );
+    const filteredMonsters = monsters.filter(monster => {
+      return monster.name.toLowerCase().includes(searchFilter.toLowerCase());
+    });
     return (
       <div className="App">
+        <header className="App-header">
+          {this.state.showChild ? <Lifecycles text={this.state.text} /> : null}
+          <button onClick={() => 
+            this.setState(state =>({ 
+              string: state.string + '...hello'
+            }))
+          }>
+            say 'Hello'
+          </button>
+          <br/>
+
+          <button onClick={() => 
+            this.setState(state =>({ 
+              showChild: !state.showChild
+            }))
+          }>
+            toggle lifecycle
+          </button>
+        </header>
+
         <h1>Monster's storage</h1>
         <SearchBox
           placeholder="Enter search criteria"
@@ -40,17 +59,6 @@ class App extends Component {
         />
 
         <CardList items={filteredMonsters} />
-
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>{this.state.string}</p>
-
-          <button onClick={() => this.setState({ string: "bye" })}>
-            click
-          </button>
-
-          <hr />
-        </header>
       </div>
     );
   }
