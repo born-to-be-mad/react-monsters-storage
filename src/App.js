@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+
 import { SearchBox } from "./components/search-box/search-box.component";
 import { CardList } from "./components/card-list/card-list.component";
-import Lifecycles from "./components/misc/lifecycles.component";
+
 import "./App.css";
 
 class App extends Component {
@@ -32,25 +33,7 @@ class App extends Component {
     });
     return (
       <div className="App">
-        <header className="App-header">
-          {this.state.showChild ? <Lifecycles text={this.state.text} /> : null}
-          <button onClick={() => 
-            this.setState(state =>({ 
-              string: state.string + '...hello'
-            }))
-          }>
-            say 'Hello'
-          </button>
-          <br/>
-
-          <button onClick={() => 
-            this.setState(state =>({ 
-              showChild: !state.showChild
-            }))
-          }>
-            toggle lifecycle
-          </button>
-        </header>
+        <header className="App-header"></header>
 
         <h1>Monster's storage</h1>
         <SearchBox
