@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
-import { SearchBox } from "./components/search-box/search-box.component";
-import { CardList } from "./components/card-list/card-list.component";
+import Header from "./components/header/header.component";
+import SearchBox from "./components/search-box/search-box.component";
+import CardList from "./components/card-list/card-list.component";
+import Scroll from "./components/scroll/scroll.component";
+import ErrorBoundry from "./components/error-boundary/error-boundary.component";
 
 import "./App.css";
 
@@ -12,14 +15,15 @@ class App extends Component {
       string: "hello",
       monsters: [],
       searchFilter: "",
-      showChild: true
+      showChild: true,
+      isPending: true
     };
   }
 
   componentDidMount() {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then(response => response.json())
-      .then(users => this.setState({ monsters: users }));
+      .then(users => this.setState({ monsters: users, isPending: false }));
   }
 
   onHandleChange = e => {
@@ -27,21 +31,29 @@ class App extends Component {
   };
 
   render() {
-    const { monsters, searchFilter } = this.state;
+    const { monsters, searchFilter, isPending } = this.state;
     const filteredMonsters = monsters.filter(monster => {
       return monster.name.toLowerCase().includes(searchFilter.toLowerCase());
     });
+
+    console.log(filteredMonsters);
     return (
       <div className="App">
-        <header className="App-header"></header>
-
-        <h1>Monster's storage</h1>
+        <Header />
         <SearchBox
           placeholder="Enter search criteria"
           handleChange={this.onHandleChange}
         />
 
-        <CardList items={filteredMonsters} />
+        <Scroll>
+          {isPending ? (
+            <h1>Loading</h1>
+          ) : (
+            <ErrorBoundry>
+              <CardList items={filteredMonsters} />
+            </ErrorBoundry>
+          )}
+        </Scroll>
       </div>
     );
   }
