@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render App component - snapshot 1`] = `
+<div
+  className="App"
+>
+  <Header />
+  <SearchBox
+    handleChange={[Function]}
+    placeholder="Enter search criteria"
+  />
+  <Scroll>
+    <h1>
+      Loading
+    </h1>
+  </Scroll>
+</div>
+`;
