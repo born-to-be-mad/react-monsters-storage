@@ -1,18 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expect to render MainPage component - snapshot 1`] = `
+exports[`renders MainPage without problems 1`] = `
 <div
-  className="MainPage"
+  className="main-page"
 >
   <Header />
   <SearchBox
-    handleChange={[Function]}
+    handleChange={[MockFunction]}
     placeholder="Enter search criteria"
   />
   <Scroll>
-    <h1>
-      Loading
-    </h1>
+    <ErrorBoundary>
+      <CardList
+        items={Array []}
+      />
+    </ErrorBoundary>
   </Scroll>
 </div>
 `;

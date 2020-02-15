@@ -2,7 +2,38 @@ import { shallow } from "enzyme";
 import React from "react";
 import MainPage from "./main-page.component";
 
-test("expect to render MainPage component - snapshot", () => {
-  const wrapper = shallow(<MainPage />);
+let wrapper;
+beforeEach(() => {
+  const mockProps = {
+    onHandleChange: jest.fn(),
+    monsters: [],
+    searchFilter: "",
+    showChild: false
+  };
+  wrapper = shallow(<MainPage {...mockProps} />);
+});
+
+it("renders MainPage without problems", () => {
   expect(wrapper).toMatchSnapshot();
+});
+
+it("filters monsters correctly", () => {
+  expect(wrapper.instance().filterMonsters([])).toEqual([]);
+
+  const customMockProps = {
+    onHandleChange: jest.fn(),
+    monsters: [
+      {
+        id: 123,
+        name: "James",
+        email: "james@bond.com"
+      }
+    ],
+    searchFilter: "ja",
+    showChild: false
+  };
+  const customWrapper = shallow(<MainPage {...customMockProps} />);
+  expect(customWrapper.instance().filterMonsters()).toEqual([
+    customMockProps.monsters[0]
+  ]);
 });

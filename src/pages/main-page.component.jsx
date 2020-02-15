@@ -9,32 +9,16 @@ import ErrorBoundry from "../components/error-boundary/error-boundary.component"
 import "./main-page.css";
 
 class MainPage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      string: "hello",
-      monsters: [],
-      searchFilter: "",
-      showChild: true,
-      isPending: true
-    };
-  }
-
-  componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then(response => response.json())
-      .then(users => this.setState({ monsters: users, isPending: false }));
-  }
-
-  onHandleChange = e => {
-    this.setState({ searchFilter: e.target.value });
+  filterMonsters = () => {
+    return this.props.monsters.filter(monster => {
+      return monster.name
+        .toLowerCase()
+        .includes(this.props.searchFilter.toLowerCase());
+    });
   };
 
   render() {
-    const { monsters, searchFilter, isPending } = this.state;
-    const filteredMonsters = monsters.filter(monster => {
-      return monster.name.toLowerCase().includes(searchFilter.toLowerCase());
-    });
+    const { isPending, onHandleChange } = this.props;
 
     //console.log(filteredMonsters);
     return (
@@ -42,7 +26,7 @@ class MainPage extends Component {
         <Header />
         <SearchBox
           placeholder="Enter search criteria"
-          handleChange={this.onHandleChange}
+          handleChange={onHandleChange}
         />
 
         <Scroll>
@@ -50,7 +34,7 @@ class MainPage extends Component {
             <h1>Loading</h1>
           ) : (
             <ErrorBoundry>
-              <CardList items={filteredMonsters} />
+              <CardList items={this.filterMonsters()} />
             </ErrorBoundry>
           )}
         </Scroll>
