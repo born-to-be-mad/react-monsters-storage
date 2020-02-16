@@ -5,10 +5,9 @@ import MainPage from "./main-page.component";
 let wrapper;
 beforeEach(() => {
   const mockProps = {
-    onHandleChange: jest.fn(),
+    onRequestMonsters: jest.fn(),
     monsters: [],
-    searchFilter: "",
-    showChild: false
+    searchFilter: ""
   };
   wrapper = shallow(<MainPage {...mockProps} />);
 });
@@ -21,7 +20,7 @@ it("filters monsters correctly", () => {
   expect(wrapper.instance().filterMonsters([])).toEqual([]);
 
   const customMockProps = {
-    onHandleChange: jest.fn(),
+    onRequestMonsters: jest.fn(),
     monsters: [
       {
         id: 123,

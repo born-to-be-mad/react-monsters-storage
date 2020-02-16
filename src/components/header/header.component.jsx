@@ -10,7 +10,6 @@ class Header extends Component {
     return false;
   }
   render() {
-    console.log("header");
     return (
       <div>
         <h1>Monster's storage</h1>

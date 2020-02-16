@@ -9,6 +9,10 @@ import ErrorBoundry from "../components/error-boundary/error-boundary.component"
 import "./main-page.css";
 
 class MainPage extends Component {
+  componentDidMount() {
+    this.props.onRequestMonsters();
+  }
+
   filterMonsters = () => {
     return this.props.monsters.filter(monster => {
       return monster.name
@@ -18,15 +22,14 @@ class MainPage extends Component {
   };
 
   render() {
-    const { isPending, onHandleChange } = this.props;
+    const { isPending, onSearchChange } = this.props;
 
-    //console.log(filteredMonsters);
     return (
       <div className="main-page">
         <Header />
         <SearchBox
           placeholder="Enter search criteria"
-          handleChange={onHandleChange}
+          handleChange={onSearchChange}
         />
 
         <Scroll>
