@@ -13,7 +13,7 @@ export const setSearchFilter = text => {
   };
 };
 
-export const requestMonsters = dispatch => {
+export const requestMonsters = () => dispatch => {
   dispatch({ type: REQUEST_MONSTERS_PENDING });
   apiCall("https://jsonplaceholder.typicode.com/users")
     .then(data => dispatch({ type: REQUEST_MONSTERS_SUCCESS, payload: data }))

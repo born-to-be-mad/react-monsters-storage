@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSearchChange: event => dispatch(setSearchFilter(event.target.value)),
-    onRequestMonsters: () => requestMonsters(dispatch)
+    onRequestMonsters: () => dispatch(requestMonsters())
   };
 };
 
